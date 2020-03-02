@@ -295,20 +295,17 @@ class Key{
             }else if (e.target.classList.contains('ArrowRight')){
                 textarea.selectionStart = textarea.selectionEnd += 1;
             }else if (e.target.classList.contains('ArrowUp')){
-                if(textarea.selectionStart <=82){
-                    textarea.selectionStart = textarea.selectionEnd = 0;
-                }
                 textarea.selectionStart = textarea.selectionEnd -= 82;
             }else if (e.target.classList.contains('ArrowDown')){
                 textarea.selectionStart = textarea.selectionEnd += 82;
+            }else if (e.target.classList.contains('Enter')){
+                textarea.value += '\n';
             }    
         });
 
     }
 
 }
-
-//Create Keyboard
 
 let keybord = new Key(arrs);
 keybord.createTextarea().createKeybord().input();

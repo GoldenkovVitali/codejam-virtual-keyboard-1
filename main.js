@@ -102,7 +102,7 @@ class Key{
             texterea.focus();
             let divs = document.querySelectorAll('div');
 
-            divs.forEach((element,i,arr)=>{
+            divs.forEach((element)=>{
                 if(e.target==element && !element.classList.contains('special')){
                     texterea.value += element.textContent
                 }else if (e.target==element && e.target.textContent == 'Space'){
@@ -119,13 +119,13 @@ class Key{
 
             if(divs[43].textContent == 'En'){
                 if (e.code == 'ShiftLeft' || e.code == 'ShiftRight' ){
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = this.arrEnShift[i]
                     });
     
-                    document.addEventListener('keyup',(e,i)=>{
+                    document.addEventListener('keyup',(e)=>{
                         if (e.code == 'ShiftLeft' || e.code == 'ShiftRight' ){
-                            divs.forEach((element,i,arr)=>{
+                            divs.forEach((element,i)=>{
                             element.innerHTML = this.arrEn[i]
                         });
                         }
@@ -133,13 +133,13 @@ class Key{
                 }
             }else if (divs[43].textContent =='Ру'){
                 if (e.code == 'ShiftLeft' || e.code == 'ShiftRight' ){
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = this.arrRuShift[i]
                     });
     
-                    document.addEventListener('keyup',(e,i)=>{
+                    document.addEventListener('keyup',(e)=>{
                         if (e.code == 'ShiftLeft' || e.code == 'ShiftRight' ){
-                            divs.forEach((element,i,arr)=>{
+                            divs.forEach((element,i)=>{
                             element.innerHTML = this.arrRu[i]
                         });
                         }
@@ -154,7 +154,7 @@ class Key{
             let divs = document.querySelectorAll('div');
 
                 if (e.code == 'CapsLock' ){
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element)=>{
                         if (!element.classList.contains('special') && !element.classList.contains('upperCase')){
                             element.textContent = element.textContent.toUpperCase();
                             element.classList.add('upperCase');
@@ -176,13 +176,13 @@ class Key{
 
             if(divs[43].textContent == 'En'){
                 if (e.target.textContent == 'Shift' || e.target.textContent == '↑' ){
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = this.arrEnShift[i]
                     });
     
-                    document.addEventListener('mouseup',(e,i)=>{
+                    document.addEventListener('mouseup',(e)=>{
                         if (e.target.textContent == 'Shift' || e.target.textContent == '↑' ){
-                            divs.forEach((element,i,arr)=>{
+                            divs.forEach((element,i)=>{
                             element.innerHTML = this.arrEn[i]
                         });
                         }
@@ -190,13 +190,13 @@ class Key{
                 }
             }else if (divs[43].textContent =='Ру'){
                 if (e.target.textContent == 'Shift' || e.target.textContent == '↑' ){
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = this.arrRuShift[i]
                     });
     
-                    document.addEventListener('mouseup',(e,i)=>{
+                    document.addEventListener('mouseup',(e)=>{
                         if (e.target.textContent == 'Shift' || e.target.textContent == '↑' ){
-                            divs.forEach((element,i,arr)=>{
+                            divs.forEach((element,i)=>{
                             element.innerHTML = this.arrRu[i]
                         });
                         }
@@ -212,7 +212,7 @@ class Key{
             let divs = document.querySelectorAll('div');
 
                 if (e.target.textContent == 'CapsLock' ){
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element)=>{
                         if (!element.classList.contains('special') && !element.classList.contains('upperCase')){
                             element.textContent = element.textContent.toUpperCase();
                             element.classList.add('upperCase');
@@ -237,9 +237,9 @@ class Key{
             let arrEn = this.arrEn;
 
             if(e.shiftKey && e.altKey && divs[43].textContent == 'En'){
-                document.addEventListener('keyup',(e,i)=>{
+                document.addEventListener('keyup',()=>{
                     divs[43].textContent == 'Ру'
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = arrRu[i]
                     });
 
@@ -247,9 +247,9 @@ class Key{
                 })
                 
             } else if (e.shiftKey && e.altKey && divs[43].textContent == 'Ру'){
-                document.addEventListener('keyup',(e,i)=>{
+                document.addEventListener('keyup',()=>{
                    divs[43].textContent == 'En'
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = arrEn[i]
                     });
                 });
@@ -264,13 +264,13 @@ class Key{
 
             if(e.target.textContent == 'En'){
                     divs[43].textContent == 'Ру'
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = arrRu[i]  
                     });
                 localStorage.setItem('lang', 'ru');
             } else if (e.target.textContent == 'Ру'){
                    divs[43].textContent == 'En'
-                    divs.forEach((element,i,arr)=>{
+                    divs.forEach((element,i)=>{
                         element.innerHTML = arrEn[i]
                     });
                 localStorage.setItem('lang', 'en');
@@ -309,6 +309,3 @@ class Key{
 
 let keybord = new Key(arrs);
 keybord.createTextarea().createKeybord().input();
-
-
-

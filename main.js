@@ -294,6 +294,9 @@ class Key{
             if (e.target.classList.contains('Backspace')){
                 e.preventDefault();
                 let position = textarea.selectionStart;
+                if(textarea.selectionStart==textarea.selectionEnd &&textarea.selectionStart== 0){
+                    return
+                }
                 if(textarea.selectionStart==textarea.selectionEnd){
                     textarea.value = textarea.value.slice(0,textarea.selectionStart - 1) + textarea.value.slice(textarea.selectionStart );
                     textarea.selectionStart = textarea.selectionEnd = position - 1;

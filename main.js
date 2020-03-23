@@ -96,17 +96,26 @@ class Key{
 
     input(){
         document.addEventListener('mousedown', (e) =>{
-            e.preventDefault();
 
             let texterea = document.querySelector('textarea');
             texterea.focus();
-            let divs = document.querySelectorAll('div');
+            let divs = document.querySelectorAll('div'),
+                textarea = document.querySelector('textarea');
+            
+               
 
             divs.forEach((element)=>{
                 if(e.target==element && !element.classList.contains('special')){
-                    texterea.value += element.textContent
+                    e.preventDefault();
+                    let position = textarea.selectionStart;
+                    texterea.value = textarea.value.slice(0,textarea.selectionStart) + element.textContent+ textarea.value.slice(textarea.selectionStart );
+                    textarea.selectionStart = textarea.selectionEnd = position + 1;
+                    
                 }else if (e.target==element && e.target.textContent == 'Space'){
-                    texterea.value += ' '
+                    e.preventDefault();
+                    let position = textarea.selectionStart;
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart) + ' '+ textarea.value.slice(textarea.selectionStart );
+                    textarea.selectionStart = textarea.selectionEnd = position + 1;
                 }
             });
 
@@ -280,26 +289,53 @@ class Key{
 
         // Del && Back && ᐊ ᐁ ᐅ ᐃ
 
-        document.addEventListener('click',(e)=>{
+        document.addEventListener('mousedown',(e)=>{
             let textarea = document.querySelector('textarea');
             if (e.target.classList.contains('Backspace')){
+                e.preventDefault();
                 let position = textarea.selectionStart;
-                textarea.value = textarea.value.slice(0,textarea.selectionStart - 1) + textarea.value.slice(textarea.selectionStart );
-                textarea.selectionStart = textarea.selectionEnd = position - 1;
+                if(textarea.selectionStart==textarea.selectionEnd){
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart - 1) + textarea.value.slice(textarea.selectionStart );
+                    textarea.selectionStart = textarea.selectionEnd = position - 1;
+                } else {
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart) + textarea.value.slice(textarea.selectionEnd );
+                    textarea.selectionStart = textarea.selectionEnd = position;
+                }
+                
             }else if (e.target.classList.contains('Delete')){
+                e.preventDefault();
                 let position = textarea.selectionStart;
-                textarea.value = textarea.value.slice(0,textarea.selectionStart) + textarea.value.slice(textarea.selectionStart + 1);
-                textarea.selectionStart = textarea.selectionEnd = position;
+                if(textarea.selectionStart==textarea.selectionEnd){
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart) + textarea.value.slice(textarea.selectionStart + 1);
+                    textarea.selectionStart = textarea.selectionEnd = position;
+                    
+                } else{
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart) + textarea.value.slice(textarea.selectionEnd );
+                    textarea.selectionStart = textarea.selectionEnd = position;
+                }
+                
             }else if (e.target.classList.contains('ArrowLeft')){
+                e.preventDefault();
                 textarea.selectionStart = textarea.selectionEnd -= 1;
             }else if (e.target.classList.contains('ArrowRight')){
+                e.preventDefault();
                 textarea.selectionStart = textarea.selectionEnd += 1;
             }else if (e.target.classList.contains('ArrowUp')){
+                e.preventDefault();
+                if (textarea.selectionStart == textarea.selectionEnd && textarea.selectionStart <= 82){
+                    textarea.selectionStart = textarea.selectionEnd = 0;
+                } else
                 textarea.selectionStart = textarea.selectionEnd -= 82;
             }else if (e.target.classList.contains('ArrowDown')){
+                e.preventDefault();
                 textarea.selectionStart = textarea.selectionEnd += 82;
             }else if (e.target.classList.contains('Enter')){
-                textarea.value += '\n';
+                e.preventDefault();
+                let position = textarea.selectionStart;
+        
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart) + '\n'+ textarea.value.slice(textarea.selectionStart );
+                    textarea.selectionStart = textarea.selectionEnd = position + 1 ;
+                
             }    
         });
 

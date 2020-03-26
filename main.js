@@ -97,18 +97,22 @@ class Key{
     input(){
         document.addEventListener('mousedown', (e) =>{
 
-            let texterea = document.querySelector('textarea');
-            texterea.focus();
+            
             let divs = document.querySelectorAll('div'),
                 textarea = document.querySelector('textarea');
-            
+                
+            textarea.focus();
+            if(e.target != textarea){
+                textarea.focus();
+                e.preventDefault();
+            }
                
 
             divs.forEach((element)=>{
                 if(e.target==element && !element.classList.contains('special')){
                     e.preventDefault();
                     let position = textarea.selectionStart;
-                    texterea.value = textarea.value.slice(0,textarea.selectionStart) + element.textContent+ textarea.value.slice(textarea.selectionStart );
+                    textarea.value = textarea.value.slice(0,textarea.selectionStart) + element.textContent+ textarea.value.slice(textarea.selectionStart );
                     textarea.selectionStart = textarea.selectionEnd = position + 1;
                     
                 }else if (e.target==element && e.target.textContent == 'Space'){
@@ -125,6 +129,7 @@ class Key{
 
         document.addEventListener('keydown',(e)=>{
             let divs = document.querySelectorAll('div');
+            
 
             if(divs[43].textContent == 'En'){
                 if (e.code == 'ShiftLeft' || e.code == 'ShiftRight' ){
@@ -162,6 +167,12 @@ class Key{
         document.addEventListener('keydown',(e)=>{
             let divs = document.querySelectorAll('div');
 
+                console.log(e.code);
+
+                if(e.code == 'AltLeft' || e.code == 'AltRight' || e.code == 'Tab' ){
+                    e.preventDefault();
+                }
+
                 if (e.code == 'CapsLock' ){
                     divs.forEach((element)=>{
                         if (!element.classList.contains('special') && !element.classList.contains('upperCase')){
@@ -182,9 +193,13 @@ class Key{
 
         document.addEventListener('mousedown',(e)=>{
             let divs = document.querySelectorAll('div');
+            if (e.target.classList.contains('special') ){
+                e.preventDefault();
+            }
 
             if(divs[43].textContent == 'En'){
                 if (e.target.textContent == 'Shift' || e.target.textContent == '↑' ){
+                    
                     divs.forEach((element,i)=>{
                         element.innerHTML = this.arrEnShift[i]
                     });
